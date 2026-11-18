@@ -20,7 +20,8 @@
       "predictiveBackGestureEnabled": true,
       "permissions": [
         "android.permission.RECORD_AUDIO"
-      ]
+      ],
+      "package": "com.polardev.vehiclemanagementapp"
     },
     "web": {
       "output": "server",
