@@ -1,12 +1,7 @@
 import { Tabs } from "expo-router";
-import { StatusBar } from "expo-status-bar";
 import { View, Text, useColorScheme } from "react-native";
 import { Ionicons } from "@expo/vector-icons"; 
-import { theme } from "@/constants/theme";
-
-const ACTIVE_COLOR = "#083461"; 
-const INACTIVE_COLOR = "#8E9EAB"; 
-const HIGHLIGHT_COLOR = "#b4e7ff"; 
+import { theme, ui } from "@/constants/theme";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -15,18 +10,10 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarShowLabel: false, // Hides the default overflowing text
-        tabBarActiveTintColor: ACTIVE_COLOR,
-        tabBarInactiveTintColor: INACTIVE_COLOR,
-        tabBarStyle: {
-          backgroundColor: currentTheme.navBackground,
-          borderTopWidth: 0, // Removes the default top border
-          elevation: 0, 
-          height: 70, // Taller to fit the full pill shape comfortably
-          alignItems: "center",
-          justifyContent: "center",
-          paddingTop: 10,
-        },
+        tabBarShowLabel: false,
+        tabBarActiveTintColor: currentTheme.tabActive,
+        tabBarInactiveTintColor: currentTheme.tabInactive,
+        tabBarStyle: [ui.navigation.tabBar, { backgroundColor: currentTheme.navBackground }],
         headerShown: false, 
       }}
     >
@@ -35,23 +22,16 @@ export default function TabLayout() {
         options={{
           tabBarIcon: ({ color, focused }) => (
             <View
-              style={{
-                backgroundColor: focused ? HIGHLIGHT_COLOR : "transparent",
-                borderRadius: 50, // Keeps the smooth pill shape
-                width: 100, 
-                height: 52, // Tall enough for both icon and text
-                justifyContent: "center",
-                alignItems: "center",
-                flexDirection: "column", // Stacks the icon above the text inside the pill
-              }}
+              style={[ui.controls.iconBtn, {
+                backgroundColor: focused ? currentTheme.tabHighlight : "transparent",
+                borderRadius: theme.borderRadius.default,
+              }]}
             >
               <Ionicons name="speedometer-outline" color={String(color)} size={28} />
-              <Text style={{ 
+              <Text style={[ui.typography.tabLabel, { 
                 color: String(color), 
-                fontSize: 12, 
                 fontWeight: focused ? "bold" : "500",
-                marginTop: 2 
-              }}>
+              }]}>
                 Dashboard
               </Text>
             </View>
@@ -64,23 +44,16 @@ export default function TabLayout() {
         options={{
           tabBarIcon: ({ color, focused }) => (
             <View
-              style={{
-                backgroundColor: focused ? HIGHLIGHT_COLOR : "transparent",
-                borderRadius: 50,
-                width: 100, 
-                height: 52,
-                justifyContent: "center",
-                alignItems: "center",
-                flexDirection: "column",
-              }}
+              style={[ui.controls.iconBtn, {
+                backgroundColor: focused ? currentTheme.tabHighlight : "transparent",
+                borderRadius: theme.borderRadius.default,
+              }]}
             >
               <Ionicons name="car-outline" color={String(color)} size={28} />
-              <Text style={{ 
+              <Text style={[ui.typography.tabLabel, { 
                 color: String(color), 
-                fontSize: 12, 
                 fontWeight: focused ? "bold" : "500",
-                marginTop: 2 
-              }}>
+              }]}>
                 Vehicles
               </Text>
             </View>

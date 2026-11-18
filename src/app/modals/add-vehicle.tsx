@@ -1,29 +1,14 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, useColorScheme } from 'react-native';
+import { theme, ui } from '@/constants/theme';
 
 export default function AddVehicleModal() {
+  const colorScheme = useColorScheme();
+  const currentTheme = colorScheme === 'dark' ? theme.dark : theme.light;
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Add New Vehicle</Text>
-      <Text style={styles.subtitle}>VehicleProfileForm will go here</Text>
+    <View style={[ui.layout.screenCenter, { backgroundColor: currentTheme.background }]}>
+      <Text style={[ui.typography.title, { color: currentTheme.text }]} >Add New Vehicle</Text>
+      <Text style={[ui.typography.subtitle, { color: currentTheme.text }]} >VehicleProfileForm will go here</Text>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF', // Modals usually have a clean white background
-  },
-  title: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: '#0A2540',
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#8E9EAB',
-  }
-});
