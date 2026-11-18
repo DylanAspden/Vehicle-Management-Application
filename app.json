@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "vehicle-management-app",
+    "name": "Vehicle Management App",
     "slug": "vehicle-management-app",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "default",
     "icon": "./assets/images/icon.png",
     "scheme": "vehiclemanagementapp",
     "userInterfaceStyle": "automatic",
@@ -17,7 +17,10 @@
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": true,
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "output": "server",
@@ -32,11 +35,34 @@
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 76
         }
-      ]
+      ],
+      "expo-web-browser",
+      [
+        "expo-sqlite",
+        {
+          "useSQLCipher": false
+        }
+      ],
+      "expo-secure-store",
+      "expo-notifications",
+      "expo-document-picker",
+      "expo-image-picker",
+      "@react-native-community/datetimepicker"
     ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {
+        "asyncRoutes": {
+          "web": true
+        }
+      },
+      "eas": {
+        "projectId": "36eaaf03-fab6-45d7-a3d5-e9398f089da1"
+      }
+    },
+    "owner": "polar-dev"
   }
 }
