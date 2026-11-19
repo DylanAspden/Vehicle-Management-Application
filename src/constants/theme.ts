@@ -156,9 +156,10 @@ export const ui = {
       alignItems: 'center',
     },
     LinkButton: {
-      marginTop: 20,
+      margin: 10,
+      fontSize: 16,
       fontWeight: 'bold',
-      padding: 10,
+      padding: 15,
       borderRadius: theme.borderRadius.default,
     },
     HeaderButton: {
@@ -171,6 +172,16 @@ export const ui = {
     HeaderSpacer: {
       width: 48,
       height: 48,
-    }
+    },
+    primaryButton: {
+      marginTop: theme.spacing.large,
+      minHeight: 48,
+      minWidth: 160,
+      paddingVertical: 12,
+      paddingHorizontal: theme.spacing.large,
+      borderRadius: theme.borderRadius.default,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
   }),
 };
