@@ -14,7 +14,9 @@ export default function TabLayout() {
         tabBarActiveTintColor: currentTheme.tabActive,
         tabBarInactiveTintColor: currentTheme.tabInactive,
         tabBarStyle: [ui.navigation.tabBar, { backgroundColor: currentTheme.navBackground }],
-        headerShown: false, 
+        headerShown: false,
+        animation: "shift",
+        sceneStyle: { backgroundColor: currentTheme.background },
       }}
     >
       <Tabs.Screen
