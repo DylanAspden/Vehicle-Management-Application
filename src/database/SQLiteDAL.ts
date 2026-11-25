@@ -121,7 +121,7 @@ async function createTables(db: SQLite.SQLiteDatabase): Promise<void> {
 // VehicleProfile queries
 // Insert a new VehicleProfile and return with its generated vehicle_id
 export async function insertVehicleProfile(
-  profile: NewVehicleProfile
+  profile: NewVehicleProfile,
 ): Promise<VehicleProfile> {
   const db = await initDatabase();
   const result = await db.runAsync(
@@ -133,7 +133,7 @@ export async function insertVehicleProfile(
       profile.year,
       profile.current_mileage,
       profile.registration,
-    ]
+    ],
   );
 
   return {
@@ -148,6 +148,6 @@ export async function getAllVehicleProfiles(): Promise<VehicleProfile[]> {
   return db.getAllAsync<VehicleProfile>(
     `SELECT vehicle_id, make, model, year, current_mileage, registration
      FROM VehicleProfile
-     ORDER BY vehicle_id DESC;`
+     ORDER BY vehicle_id DESC;`,
   );
 }

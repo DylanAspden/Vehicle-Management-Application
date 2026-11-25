@@ -2,7 +2,6 @@ import { Platform } from "react-native";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 
-
 Notifications.setNotificationHandler({
   // Runs automatically when a scheduled notification fires in the foreground
   handleNotification: async () => ({
@@ -16,25 +15,25 @@ Notifications.setNotificationHandler({
 export async function requestNotificationPermissionsAsync() {
   // Check if the device is a physical device (not a simulator/emulator)
   if (!Device.isDevice) {
-    console.warn('Must use physical device for full notification support');
+    console.warn("Must use physical device for full notification support");
     return;
   }
   // Request permissions from the OS
   const { status: existingStatus } = await Notifications.getPermissionsAsync();
   let finalStatus = existingStatus;
-  if (existingStatus !== 'granted') {
+  if (existingStatus !== "granted") {
     const { status } = await Notifications.requestPermissionsAsync();
     finalStatus = status;
   }
   // If permissions are not granted, log a warning and exit
-  if (finalStatus !== 'granted') {
-    console.warn('Notification permissions not granted');
+  if (finalStatus !== "granted") {
+    console.warn("Notification permissions not granted");
     return;
   }
   // Configure Android notification channel
-  if (Platform.OS === 'android') {
-    await Notifications.setNotificationChannelAsync('default', {
-      name: 'Default',
+  if (Platform.OS === "android") {
+    await Notifications.setNotificationChannelAsync("default", {
+      name: "Default",
       importance: Notifications.AndroidImportance.DEFAULT,
     });
   }
@@ -60,7 +59,9 @@ export async function reconcileNotificationsAsync() {
 
   // 3. Cancel orphaned OS notifications (e.g. tasks already completed or deleted)
   for (const osNotif of osScheduled) {
-    const notifId = osNotif.content?.data?.notification_id as number | undefined;
+    const notifId = osNotif.content?.data?.notification_id as
+      | number
+      | undefined;
     if (notifId !== undefined && !validDbIds.has(notifId)) {
       await Notifications.cancelScheduledNotificationAsync(osNotif.identifier);
     }
@@ -70,13 +71,15 @@ export async function reconcileNotificationsAsync() {
   const now = new Date();
   for (const item of dbNotifications) {
     const matches = osScheduled.filter(
-      (n) => n.content?.data?.notification_id === item.notification_id
+      (n) => n.content?.data?.notification_id === item.notification_id,
     );
 
     // If duplicates exist in the OS, cancel the extras
     if (matches.length > 1) {
       for (let i = 1; i < matches.length; i++) {
-        await Notifications.cancelScheduledNotificationAsync(matches[i].identifier);
+        await Notifications.cancelScheduledNotificationAsync(
+          matches[i].identifier,
+        );
       }
     }
 
@@ -92,14 +95,15 @@ export async function reconcileNotificationsAsync() {
     // Re-register the missing or reprompted notification with the OS
     await Notifications.scheduleNotificationAsync({
       content: {
-        title: item.title ?? 'Vehicle Maintenance Reminder',
-        body: item.body ?? 'A scheduled maintenance task requires your attention.',
+        title: item.title ?? "Vehicle Maintenance Reminder",
+        body:
+          item.body ?? "A scheduled maintenance task requires your attention.",
         data: { notification_id: item.notification_id, task_id: item.task_id },
       },
       trigger: {
         type: Notifications.SchedulableTriggerInputTypes.DATE,
         date: triggerDate,
-        channelId: 'default',
+        channelId: "default",
       },
     });
   }

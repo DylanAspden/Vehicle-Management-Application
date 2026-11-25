@@ -1,14 +1,23 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Stack, router } from "expo-router";
-import { View, Text, Pressable, useColorScheme, ActivityIndicator } from "react-native";
+import {
+  View,
+  Text,
+  Pressable,
+  useColorScheme,
+  ActivityIndicator,
+} from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { theme, ui } from "@/constants/theme";
-import { authenticateDeviceAsync, initializeAppServicesAsync } from "@/services/AppGate";
+import {
+  authenticateDeviceAsync,
+  initializeAppServicesAsync,
+} from "@/services/AppGate";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
-  const currentTheme = colorScheme === 'dark' ? theme.dark : theme.light;
+  const currentTheme = colorScheme === "dark" ? theme.dark : theme.light;
   const insets = useSafeAreaInsets();
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const [isBootReady, setIsBootReady] = useState(false);
@@ -27,7 +36,9 @@ export default function RootLayout() {
     }
   }, []);
 
-  useEffect(() => {authenticateUser();}, [authenticateUser]);
+  useEffect(() => {
+    authenticateUser();
+  }, [authenticateUser]);
 
   useEffect(() => {
     if (!isAuthenticated) return;
@@ -47,17 +58,28 @@ export default function RootLayout() {
     <View style={[ui.layout.headerWrapper, { paddingTop: insets.top + 8 }]}>
       <View
         style={[
-          ui.navigation.pillHeaderContainer, ui.shadows.floatingPill,
-          { backgroundColor: currentTheme.glassyBackground, borderColor: currentTheme.glassyBorder },
+          ui.navigation.pillHeaderContainer,
+          ui.shadows.floatingPill,
+          {
+            backgroundColor: currentTheme.glassyBackground,
+            borderColor: currentTheme.glassyBorder,
+          },
         ]}
       >
         <Pressable
           onPress={() => router.back()}
-          style={[ui.controls.HeaderButton, { backgroundColor: currentTheme.tabHighlight }]}
+          style={[
+            ui.controls.HeaderButton,
+            { backgroundColor: currentTheme.tabHighlight },
+          ]}
           accessibilityLabel="Go back"
           accessibilityRole="button"
         >
-          <Ionicons name="arrow-back" size={22} color={currentTheme.tabActive} />
+          <Ionicons
+            name="arrow-back"
+            size={22}
+            color={currentTheme.tabActive}
+          />
         </Pressable>
 
         <Text style={[ui.typography.headerTitle, { color: currentTheme.text }]}>
@@ -71,35 +93,72 @@ export default function RootLayout() {
 
   if (isAuthenticated === false) {
     return (
-      <View style={[ui.layout.screenCenter, { backgroundColor: currentTheme.background }]}>
-        <Text style={[ui.typography.title, { color: currentTheme.text }]}>App Locked</Text>
+      <View
+        style={[
+          ui.layout.screenCenter,
+          { backgroundColor: currentTheme.background },
+        ]}
+      >
+        <Text style={[ui.typography.title, { color: currentTheme.text }]}>
+          App Locked
+        </Text>
         <Text style={[ui.typography.subtitle, { color: currentTheme.text }]}>
           Verify with your device PIN or biometrics to continue
         </Text>
         <Pressable
           onPress={authenticateUser}
-          style={[ui.controls.primaryButton, { backgroundColor: currentTheme.btnBackground }]}
+          style={[
+            ui.controls.primaryButton,
+            { backgroundColor: currentTheme.btnBackground },
+          ]}
           accessibilityRole="button"
           accessibilityLabel="Unlock application"
         >
-          <Text style={[ui.typography.headerTitle, { color: currentTheme.text }]}>Tap to Unlock</Text>
+          <Text
+            style={[ui.typography.headerTitle, { color: currentTheme.text }]}
+          >
+            Tap to Unlock
+          </Text>
         </Pressable>
       </View>
     );
-  } 
+  }
 
   if (!isBootReady || isAuthenticated === null) {
     return (
-      <View style={[ui.layout.screenCenter, { backgroundColor: currentTheme.background }]}>
+      <View
+        style={[
+          ui.layout.screenCenter,
+          { backgroundColor: currentTheme.background },
+        ]}
+      >
         <ActivityIndicator size="large" color={currentTheme.tabActive} />
       </View>
     );
   }
 
   return (
-    <Stack screenOptions={{ headerShown: false, animation: "fade", contentStyle: { backgroundColor: currentTheme.background }}}>
-      <Stack.Screen name="index" options={{ animation: "none", contentStyle: { backgroundColor: currentTheme.background } }} />
-      <Stack.Screen name="(tabs)" options={{ animation: "fade", contentStyle: { backgroundColor: currentTheme.background } }} />
+    <Stack
+      screenOptions={{
+        headerShown: false,
+        animation: "fade",
+        contentStyle: { backgroundColor: currentTheme.background },
+      }}
+    >
+      <Stack.Screen
+        name="index"
+        options={{
+          animation: "none",
+          contentStyle: { backgroundColor: currentTheme.background },
+        }}
+      />
+      <Stack.Screen
+        name="(tabs)"
+        options={{
+          animation: "fade",
+          contentStyle: { backgroundColor: currentTheme.background },
+        }}
+      />
 
       <Stack.Screen
         name="modals/add-vehicle"

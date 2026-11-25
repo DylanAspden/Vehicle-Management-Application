@@ -1,5 +1,8 @@
 import * as LocalAuthentication from "expo-local-authentication";
-import { requestNotificationPermissionsAsync, reconcileNotificationsAsync } from "@/services/NotificationService";
+import {
+  requestNotificationPermissionsAsync,
+  reconcileNotificationsAsync,
+} from "@/services/NotificationService";
 
 export type AuthResult = "unlocked" | "locked" | "error";
 

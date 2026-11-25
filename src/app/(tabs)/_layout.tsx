@@ -1,11 +1,11 @@
 import { Tabs } from "expo-router";
 import { View, Text, useColorScheme } from "react-native";
-import { Ionicons } from "@expo/vector-icons"; 
+import { Ionicons } from "@expo/vector-icons";
 import { theme, ui } from "@/constants/theme";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-  const currentTheme = colorScheme === 'dark' ? theme.dark : theme.light;
+  const currentTheme = colorScheme === "dark" ? theme.dark : theme.light;
 
   return (
     <Tabs
@@ -13,7 +13,10 @@ export default function TabLayout() {
         tabBarShowLabel: false,
         tabBarActiveTintColor: currentTheme.tabActive,
         tabBarInactiveTintColor: currentTheme.tabInactive,
-        tabBarStyle: [ui.navigation.tabBar, { backgroundColor: currentTheme.navBackground }],
+        tabBarStyle: [
+          ui.navigation.tabBar,
+          { backgroundColor: currentTheme.navBackground },
+        ],
         headerShown: false,
         animation: "shift",
         sceneStyle: { backgroundColor: currentTheme.background },
@@ -24,16 +27,30 @@ export default function TabLayout() {
         options={{
           tabBarIcon: ({ color, focused }) => (
             <View
-              style={[ui.controls.iconBtn, {
-                backgroundColor: focused ? currentTheme.tabHighlight : "transparent",
-                borderRadius: theme.borderRadius.default,
-              }]}
+              style={[
+                ui.controls.iconBtn,
+                {
+                  backgroundColor: focused
+                    ? currentTheme.tabHighlight
+                    : "transparent",
+                  borderRadius: theme.borderRadius.default,
+                },
+              ]}
             >
-              <Ionicons name="speedometer-outline" color={String(color)} size={28} />
-              <Text style={[ui.typography.tabLabel, { 
-                color: String(color), 
-                fontWeight: focused ? "bold" : "500",
-              }]}>
+              <Ionicons
+                name="speedometer-outline"
+                color={String(color)}
+                size={28}
+              />
+              <Text
+                style={[
+                  ui.typography.tabLabel,
+                  {
+                    color: String(color),
+                    fontWeight: focused ? "bold" : "500",
+                  },
+                ]}
+              >
                 Dashboard
               </Text>
             </View>
@@ -46,16 +63,26 @@ export default function TabLayout() {
         options={{
           tabBarIcon: ({ color, focused }) => (
             <View
-              style={[ui.controls.iconBtn, {
-                backgroundColor: focused ? currentTheme.tabHighlight : "transparent",
-                borderRadius: theme.borderRadius.default,
-              }]}
+              style={[
+                ui.controls.iconBtn,
+                {
+                  backgroundColor: focused
+                    ? currentTheme.tabHighlight
+                    : "transparent",
+                  borderRadius: theme.borderRadius.default,
+                },
+              ]}
             >
               <Ionicons name="car-outline" color={String(color)} size={28} />
-              <Text style={[ui.typography.tabLabel, { 
-                color: String(color), 
-                fontWeight: focused ? "bold" : "500",
-              }]}>
+              <Text
+                style={[
+                  ui.typography.tabLabel,
+                  {
+                    color: String(color),
+                    fontWeight: focused ? "bold" : "500",
+                  },
+                ]}
+              >
                 Vehicles
               </Text>
             </View>

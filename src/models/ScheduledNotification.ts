@@ -5,4 +5,7 @@ export interface ScheduledNotification {
   trigger_mileage: number;
 }
 
-export type NewScheduledNotification = Omit<ScheduledNotification, "notification_id">;
+export type NewScheduledNotification = Omit<
+  ScheduledNotification,
+  "notification_id"
+>;
